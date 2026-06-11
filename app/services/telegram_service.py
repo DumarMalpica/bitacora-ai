@@ -11,12 +11,14 @@ class TelegramService:
         self.base_url = f"https://api.telegram.org/bot{settings.telegram_bot_token}"
 
     async def request(self, method: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+        clean_payload = {key: value for key, value in (payload or {}).items() if value is not None}
         async with httpx.AsyncClient(timeout=30) as client:
-            response = await client.post(f"{self.base_url}/{method}", json=payload or {})
-            response.raise_for_status()
+            response = await client.post(f"{self.base_url}/{method}", json=clean_payload)
             data = response.json()
+            if response.is_error:
+                raise RuntimeError({"method": method, "status_code": response.status_code, "data": data})
             if not data.get("ok"):
-                raise RuntimeError(data)
+                raise RuntimeError({"method": method, "data": data})
             return data
 
     async def send_message(

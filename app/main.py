@@ -74,8 +74,21 @@ async def handle_message(
 ) -> None:
     from_user = message.get("from") or {}
     telegram_user_id = int(from_user["id"])
+    if message.get("text") == "/id":
+        await telegram.send_message(
+            int(message["chat"]["id"]),
+            f"Tu Telegram user id es: {telegram_user_id}\nChat id: {message['chat']['id']}",
+        )
+        return
+
     if settings.allowed_user_ids and telegram_user_id not in settings.allowed_user_ids:
-        await telegram.send_message(message["chat"]["id"], "Este bot aun es privado.")
+        await telegram.send_message(
+            int(message["chat"]["id"]),
+            (
+                "Este bot aun es privado.\n\n"
+                f"Tu Telegram user id detectado es: {telegram_user_id}"
+            ),
+        )
         return
 
     user = await get_or_create_user(
