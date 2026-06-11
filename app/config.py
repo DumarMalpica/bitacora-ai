@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     telegram_allowed_user_ids: str = Field(default="")
 
     openai_api_key: str
-    openai_transcription_model: str = "gpt-4o-transcribe"
+    openai_transcription_model: str = "whisper-1"
     openai_text_model: str = "gpt-5.5"
 
     weekly_report_cron_token: str

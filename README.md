@@ -39,6 +39,8 @@ Variables principales:
 - `TELEGRAM_WEBHOOK_SECRET`: secreto para proteger el webhook.
 - `TELEGRAM_ALLOWED_USER_IDS`: IDs de Telegram permitidos, separados por coma.
 - `OPENAI_API_KEY`: clave de OpenAI.
+- `OPENAI_TRANSCRIPTION_MODEL`: usa `whisper-1` si quieres Whisper clasico, o `gpt-4o-transcribe` para transcripcion mas nueva.
+- `OPENAI_TEXT_MODEL`: modelo GPT usado para redactar, estructurar y resumir.
 - `WEEKLY_REPORT_CRON_TOKEN`: secreto para ejecutar el reporte semanal.
 
 ## Desarrollo local
@@ -63,6 +65,10 @@ Tambien puedes abrir:
 ```text
 <APP_BASE_URL>/telegram/set-webhook
 ```
+
+## Railway
+
+Lee [docs/railway-env.md](docs/railway-env.md) para configurar las variables del servicio `bitacora-ai`.
 
 ## Cron semanal en Railway
 
